@@ -1,0 +1,19 @@
+{
+  "name": "types-ui-demo",
+  "version": "0.0.6",
+  "private": false,
+  "main": "dist/app.js",
+  "scripts": {
+    "compile": "rm -rf dist/ && ./node_modules/typescript/bin/tsc",
+    "build": "npm run compile",
+    "start": "budo ./dist/demo.js  --serve bundle.js --live"
+  },
+  "dependencies": {
+    "@types/jquery": "^2.0.39",
+    "types-ui": "0.0.6",
+    "raml2type-bindings":"0.0.7"
+  },
+  "directories": [
+    "dist"
+  ]
+}

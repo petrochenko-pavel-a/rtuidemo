@@ -1,0 +1,31 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Person:
+    (core.propOrder): [ "name", "lastName", "age", "single" ]
+    properties:
+      name:
+        type: string
+        description: "Please add first name here"
+      lastName: string
+      married?: boolean
+      hasChildren?:
+          type: boolean
+          (core.disabledWhen): "!$.married"
+      age?:
+        type: number
+        minimum: 1
+        maximum: 100
+      partnerFullName?:
+        type: string
+        (core.visibleWhen): "$.married"
+      divorceReason?:
+        type: "string"
+        (core.requiredWhen): "$.divorced"
+        (core.visibleWhen): "$.divorced"
+        (core.requiredWhenMessage): "Divorse reason should be specified"
+      divorced?: boolean
+      single?:
+        type: boolean
+        default: true
