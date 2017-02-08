@@ -1,0 +1,20 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Thing:
+    properties:
+      kind: string
+      name: string
+      owned?: boolean
+    discriminator: kind
+  Animal:
+    type: Thing
+    properties:
+      food: string
+  Vehicle:
+    type: Thing
+    properties:
+      fuel: string
+      maxSpeed: number
+  VehicleOrAnimal: Vehicle | Animal

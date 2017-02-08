@@ -1,0 +1,12 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Vehicle:
+    properties:
+      name: string
+      propulsion:
+          type: integer
+          enum: [1, 2, 3, 4]
+          (core.enumDescriptions): ["wind", "coal", "oil", "hydrogen"]
+          description: "Describe source of energy for you vehicle engine"

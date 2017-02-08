@@ -1,0 +1,16 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Party:
+    properties:
+      name:
+        type: string
+      leaders:
+        (core.enumValues): "$.members"
+      members:
+        properties:
+          //:
+            type: string
+            displayName: Class
+            enum: ["Warrior", "Mage", "Priest", "Ranger"]

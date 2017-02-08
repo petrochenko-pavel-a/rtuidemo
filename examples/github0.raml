@@ -1,0 +1,61 @@
+#%RAML 1.0
+title: Github
+baseUri: https://api.github.com/
+mediaType: application/json
+uses:
+  core: coreLib.raml
+types:
+  Base:
+    properties:
+      created_at: datetime
+      updated_at: datetime
+      body?: core.markdown
+  Comment:
+    type: Base
+  Label:
+    properties:
+      name: string
+  Repository:
+
+  Issue:
+    type: Base
+    (core.icon): "https://maxcdn.icons8.com/office/PNG/16/Animals/bug-16.png"
+    properties:
+      title: string
+      labels:
+        type: Label[]
+      state:
+        type: string
+        enum: [ open , closed]
+      comments_url:
+        type: core.relation
+        items: Comment
+        displayName: Comments
+/search/issues:
+  get:
+    displayName: Search Issues
+    (core.errorMessageIn): message
+    (core.basicPaging): { total: total_count , page: page, results: items}
+    queryParameters:
+      q:
+        type: string
+        displayName: Search Query
+        required: true
+        (core.errorMessage): Please fill search query
+        default: raml
+      sort:
+        enum: [comments, created, updated]
+        displayName: Order by
+      page: integer
+    responses:
+      200:
+        body:
+          properties:
+            items:
+              type: Issue[]
+              (core.columns):  [ title, created_at, updated_at ]
+            total_count: integer
+      400:
+        body:
+          properties:
+            message: string

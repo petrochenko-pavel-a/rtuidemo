@@ -1,0 +1,16 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Vehicle:
+    properties:
+      name:
+        type: string
+        (core.enumValues): "$.members"
+      members:
+        type: array
+        items:
+          type: string
+          minLength: 1
+        default: ["A", "B", "C"]
+        uniqueItems: true

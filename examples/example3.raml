@@ -1,0 +1,13 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Vehicle:
+    properties:
+      name:
+        type: string
+        (core.typeahead): "$.commonNames"
+
+      commonNames:
+        type: string[]
+        default: ["Pavel", "Denis", "Max"]

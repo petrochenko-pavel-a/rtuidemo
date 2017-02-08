@@ -1,0 +1,50 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  typeName:
+    type: string
+    #(core.enumValues): "context.types"
+  Type:
+    (core.icon): "https://maxcdn.icons8.com/Color/PNG/24/Network/connection_status_on-24.png"
+    properties:
+      name:
+        type: string
+        (core.unique): true
+      description?: core.markdown
+      type?:
+        type: typeName
+      item?:
+          displayName: Component type
+          type: typeName
+          (core.visibleWhen): $.type=='array'
+          (core.requiredWhen): $.type=='array'
+      pattern?:
+        type: string
+        (core.visibleWhen): $.type=='string'
+      minLength?:
+          type: integer
+          (core.visibleWhen): $.type=='string'
+      maxLength?:
+          type: integer
+          (core.visibleWhen): $.type=='string'
+      minimum?:
+          type: number
+          (core.visibleWhen): $.type=='number'
+      maximum?:
+          type: number
+          (core.visibleWhen): $.type=='number'
+      properties?:
+        type: Property[]
+        (core.visibleWhen): $.type=='object'
+  Property:
+      type: Type
+      properties:
+        required: boolean
+        type:
+          type: string
+          default: string
+  Library:
+    properties:
+      name: string
+      types: Type[]
