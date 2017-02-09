@@ -170,6 +170,14 @@ var examples=[
             repo:"testRepo"
         }
     },
+    {
+        name: "Github My Repos",
+        file: "/examples/github2.raml",
+        id:"_user_orgs_get",//
+        context:{
+            owner:"petrochenko-pavel-a",
+        }
+    },
 ];
 dv.setInput(examples)
 dv.setLabelProvider({
