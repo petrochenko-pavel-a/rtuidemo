@@ -8,6 +8,7 @@ annotationTypes:
   requiredWhenMessage: string
   enumDescriptions: string[]
   enumValues: RAMLLocalExpression
+  representation: string
   equalTo: string
   create: string| nil
   update: string| nil
@@ -15,6 +16,10 @@ annotationTypes:
   memberCollection: string| nil
   label: string
   key: boolean
+  computeFunction: string
+  computedProperties:
+    properties:
+       //: computePropertyType
   readonly: boolean
   reference: boolean | string
   conversionRules:
@@ -34,6 +39,7 @@ annotationTypes:
     type: array
     items: string
   errorMessage: string
+  instanceValidator: string
   basicPaging:
     properties:
        total?: RAMLResponseExpression
@@ -47,13 +53,15 @@ annotationTypes:
   propOrder:
     type: string[]
 types:
+  computePropertyType: any
   RAMLLocalExpression: string
   RAMLResponseExpression: string
   RAMLRequestExpression: string
   url: string
   multiline:
     type: string
+  text: multiline
   markdown:
-      type: multiline
+      type: text
   relation:
     type: array

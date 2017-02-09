@@ -1,0 +1,13 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  StudentClass:
+    properties:
+      name: string
+      teacherFullName: string
+      courseDescription: core.text
+      numberOfHours:
+       type: integer
+       minimum: 1
+       maximum: 192

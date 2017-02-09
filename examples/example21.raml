@@ -1,0 +1,12 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Sum:
+    (core.instanceValidator): ($.x+$.y==6)
+    (core.errorMessage): Sum should be 6
+    (core.computedProperties):
+      sum: $.x+$.y
+    properties:
+      x: number
+      y: number

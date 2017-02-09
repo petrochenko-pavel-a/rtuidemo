@@ -12,6 +12,8 @@ types:
       body?: core.markdown
   Comment:
     type: Base
+    (core.label): created_at
+    (core.icon): "https://maxcdn.icons8.com/Color/PNG/24/Business/comments-24.png"
   Label:
     properties:
       name: string
@@ -29,6 +31,7 @@ types:
         enum: [ open , closed]
       comments_url:
         type: core.relation
+        (core.representation): list
         items: Comment
         displayName: Comments
 /search/issues:
