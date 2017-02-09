@@ -178,6 +178,14 @@ var examples=[
             owner:"petrochenko-pavel-a",
         }
     },
+    {
+        name: "Github My Repos(with lib)",
+        file: "/examples/github20.raml",
+        id:"_user_orgs_get",//
+        context:{
+            owner:"petrochenko-pavel-a",
+        }
+    },
 ];
 dv.setInput(examples)
 dv.setLabelProvider({
