@@ -10,18 +10,18 @@ annotationTypes:
   enumValues: RAMLLocalExpression
   representation: string
   equalTo: string
-  create: string| nil
-  update: string| nil
-  list: string | nil
-  memberCollection: string| nil
-  label: string
+  create: RAMLTypeName| nil
+  update: RAMLTypeName| nil
+  list: RAMLTypeName | nil
+  memberCollection: RAMLTypeName| nil
+  label: RAMLLocalExpression
   key: boolean
-  computeFunction: string
+  computeFunction: RAMLLocalExpression
   computedProperties:
     properties:
        //: computePropertyType
   readonly: boolean
-  reference: boolean | string
+  reference: boolean | RAMLReferenceExpression
   conversionRules:
     properties:
       //:
@@ -57,6 +57,8 @@ types:
   RAMLLocalExpression: string
   RAMLResponseExpression: string
   RAMLRequestExpression: string
+  RAMLReferenceExpression: string
+  RAMLTypeName: string
   url: string
   multiline:
     type: string

@@ -36,6 +36,13 @@ body {
 .gutter.gutter-horizontal {
     cursor: col-resize;
     background-image: url('./grips/vertical.png');
+
+}
+.gutter.gutter-horizontal{
+    height: 100%;
+}
+.grabHorizontal .gutter.gutter-horizontal{
+    height: initial;
 }
 
 .gutter.gutter-vertical {
@@ -44,6 +51,5 @@ body {
 }
 
 .split.split-horizontal, .gutter.gutter-horizontal {
-    height: 100%;
     float: left;
 }

@@ -66,6 +66,29 @@ class Details extends wb.ViewPart {
         this.refresh();
     }
 }
+function beatify(id:string){
+    var r=""
+    var lastC=false;
+    for (var i=0;i<id.length;i++){
+        var c=id.charAt(i);
+        if (c=='_'){
+            if (lastC){
+                continue;
+            }
+            else{
+                r=r+".";
+                lastC=true;
+                continue;
+            }
+        }
+        else{
+            lastC=false
+        }
+        r=r+c;
+
+    }
+    return r;
+}
 class SourceType extends wb.ViewPart {
 
     input: any
@@ -76,6 +99,16 @@ class SourceType extends wb.ViewPart {
 
         c.innerHTML = "";
         if (this.input) {
+            var tp=this.input;
+            var op={};
+            var isOp=false;
+            var id=this.input.id;
+            if (!id) {
+                Object.keys(this.input.jsonTypeObj).forEach(x => {
+                    id = x;
+                });
+            }
+            id=beatify(id);
             var res = new controls.HorizontalTabFolder("div");
             var sc = new controls.SourceCode();
             sc.setTitle("RAML")
@@ -86,6 +119,11 @@ class SourceType extends wb.ViewPart {
             sc.setTitle("JSON")
             sc.setLanguage("json")
             sc.setContent(this.input.jsonType);
+            res.add(sc);
+            var sc = new controls.SourceCode();
+            sc.setTitle("JavaScript")
+            sc.setLanguage("javascript")
+            sc.setContent("RC.render(document.getElementById('demo'),"+id+","+JSON.stringify(this.input.context)+","+JSON.stringify(this.input.renderingOptions)+")");
             res.add(sc);
             var sc = new controls.SourceCode();
             sc.setTitle("Rendering options")
@@ -110,8 +148,11 @@ class SourceType extends wb.ViewPart {
 
                 this.input ={
                     editType:f.ramlSource,
+                    jsonTypeObj:rr,
                     jsonType:JSON.stringify(rr,null,2),
-                    renderingOptions:""
+                    renderingOptions:{},
+                    context:i.context? i.context:{},
+                    id:i.id
                 }
                 this.refresh();
                 details.elementId=i.id;
@@ -125,12 +166,20 @@ class SourceType extends wb.ViewPart {
 }
 var examples=[
     {
+        name: "Simplest Possible Case",
+        file: "/examples/example0.raml"
+    },
+    {
         name: "Form with dependent fields",
         file: "/examples/example1.raml"
     },
     {
         name: "Enum descriptions",
         file: "/examples/example2.raml"
+    },
+    {
+        name: "Compute Function",
+        file: "/examples/example21.raml"
     },
     {
         name: "Type ahead",

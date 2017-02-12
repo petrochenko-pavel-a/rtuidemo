@@ -12,8 +12,9 @@ types:
       body?: core.markdown
   Comment:
     type: Base
-    (core.label): created_at
-    (core.icon): "https://maxcdn.icons8.com/Color/PNG/24/Business/comments-24.png"
+    (core.label): "${user.login} ${created_at}"
+    (core.icon): user.avatar_url
+
   Label:
     properties:
       name: string
