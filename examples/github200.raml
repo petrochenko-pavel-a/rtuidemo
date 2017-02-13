@@ -11,6 +11,21 @@ types:
      (core.label): "${user.login} ${created_at} ${body}"
      (core.icon): user.avatar_url
      (core.htmlLabel): true
+   Issue:
+     type: ght.Issue
+     (core.labelDecorators):
+       opened:
+         when: $.state=='opened'
+         details: "${number} opened ${created_at} by ${user.login}"
+       closed:
+         when: $.state=='closed'
+         details: "by ${user.login} closed at"
+       comments_count:
+         when: $.comments
+         text+: "<img src='https://maxcdn.icons8.com/Color/PNG/24/Business/comments-24.png'>${comments}"
+       labels:
+         text+: {$.labels}
+
 resourceTypes:
   list:
     get:
@@ -30,7 +45,13 @@ securedBy: basic
       displayName: Issues
       (core.errorMessageIn): message
       (core.basicPaging): { page: page}
-      (core.memberCollection): ght.Repository
+      (core.representation): list
+      (core.uifeatures):
+        search: true
+        grouping: true
+        initialOrdering: updated_at
+        listStyle:
+          details: small
       queryParameters:
         state:
             enum: [open, closed, all]
@@ -49,8 +70,7 @@ securedBy: basic
       responses:
         200:
           body:
-              type: ght.Issue[]
-              (core.columns):  [ title, created_at, updated_at, state ]
+              type: Issue[]
     /{issueNum}:
       uriParameters:
         issueNum:
@@ -58,6 +78,7 @@ securedBy: basic
           (core.reference): ght.Issue.number
       /comments:
           (core.memberCollection): ght.Issue
+          (core.visibleWhen): $.comments
           type:  { list: {ItemType : Comment } }
           (core.columns): [updated_at, body ]
           (core.representation): list-only
