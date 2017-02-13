@@ -5,6 +5,12 @@ mediaType: application/json
 uses:
   core: coreLib.raml
   ght: githubTypes.raml
+types:
+   Comment:
+     type: ght.Comment
+     (core.label): "${user.login} ${created_at} ${body}"
+     (core.icon): user.avatar_url
+     (core.htmlLabel): true
 resourceTypes:
   list:
     get:
@@ -18,31 +24,7 @@ securitySchemes:
   basic:
     type: Basic Authentication
 securedBy: basic
-/user/orgs:
-  type:  { list: {ItemType : ght.Organization} }
-  (core.columns): ['login']
-/orgs/{org}:
-  uriParameters:
-    org:
-      (core.reference): ght.Organization.login
-  /repos:
-    (core.memberCollection): ght.Organization
-    type: {list: { ItemType: ght.Repository}}
-    (core.columns): ['name']
-  /members:
-    (core.memberCollection): ght.Organization
-    type: {list: { ItemType: ght.User}}
-    (core.columns): ['login']
 /repos/{owner}/{repo}:
-  uriParameters:
-    repo:
-      (core.reference): ght.Repository.name
-    owner:
-      (core.reference): ght.Repository.owner.login
-  /milestones:
-    type:  { list: {ItemType : ght.Milestone} }
-  /labels:
-    type:  { list: {ItemType : ght.Label} }
   /issues:
     get:
       displayName: Issues
@@ -54,40 +36,28 @@ securedBy: basic
             enum: [open, closed, all]
             default: open
             displayName: Issue State
+            (core.filter):
+               noFilterValue: all
         sort:
           enum: [comments, created, updated]
           default: created
           displayName: Order by
+          (core.ordering):
+            created: created_at
+            updated: updated_at
         page: integer
       responses:
         200:
           body:
               type: ght.Issue[]
               (core.columns):  [ title, created_at, updated_at, state ]
-    post:
-      (core.create): ght.Issue
-      displayName: Create Issue
-      body: ght.CreateIssue
-      responses:
-          200:
-            body: ght.Issue
     /{issueNum}:
       uriParameters:
         issueNum:
           type: integer
           (core.reference): ght.Issue.number
-      patch:
-        (core.update): ght.Issue
-        body: ght.EditIssue
-        responses:
-          200:
-            body: ght.Issue
       /comments:
           (core.memberCollection): ght.Issue
-          type:  { list: {ItemType : ght.Comment } }
+          type:  { list: {ItemType : Comment } }
           (core.columns): [updated_at, body ]
-(core.conversionRules):
-  MileStoneToInteger:
-    from: ght.Milestone
-    to: integer
-    selfRule: this.number
+          (core.representation): list-only

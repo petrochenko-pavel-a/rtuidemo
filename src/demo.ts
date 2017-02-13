@@ -235,6 +235,15 @@ var examples=[
             owner:"petrochenko-pavel-a",
         }
     },
+    {
+        name: "Github Filters",
+        file: "/examples/github200.raml",
+        id:"_repos__owner___repo__issues_get",//
+        context:{
+            owner:"raml-org",
+            repo:"raml-spec"
+        }
+    },
 ];
 dv.setInput(examples)
 dv.setLabelProvider({

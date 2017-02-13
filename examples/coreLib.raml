@@ -9,7 +9,10 @@ annotationTypes:
   enumDescriptions: string[]
   enumValues: RAMLLocalExpression
   representation: string
+  htmlLabel: boolean
   equalTo: string
+  ordering: OrderingMappings
+  filter: FilterMapping |  nil
   create: RAMLTypeName| nil
   update: RAMLTypeName| nil
   list: RAMLTypeName | nil
@@ -59,6 +62,23 @@ types:
   RAMLRequestExpression: string
   RAMLReferenceExpression: string
   RAMLTypeName: string
+  OrderingMapping:
+    properties:
+      property: string
+      descending?: boolean
+  OrderingMappings:
+    properties:
+      //: string | OrderingMapping
+  FilterMapping:
+    properties:
+      property?: string
+      valueMappings?:
+            properties:
+               //: string
+      noFilterValue?: string
+      filterOp?:
+            default: eq
+            enum: [ eq, lt, gt, like, ge, le ]
   url: string
   multiline:
     type: string
