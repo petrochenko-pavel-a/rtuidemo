@@ -18,6 +18,10 @@ types:
       updated_at:
         type: datetime
         (core.readonly): true
+      closed_at:
+          type: datetime
+          (core.readonly): true
+          (core.visibleWhen): false
       body?: core.markdown
   Label:
     type: HasId

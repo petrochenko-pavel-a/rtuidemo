@@ -15,16 +15,27 @@ types:
      type: ght.Issue
      (core.labelDecorators):
        opened:
-         when: $.state=='opened'
-         details: "${number} opened ${created_at} by ${user.login}"
+         when: $.state=='open'
+         details: "#${number} opened ${created_at} by ${user.login}"
        closed:
          when: $.state=='closed'
-         details: "by ${user.login} closed at"
+         details: "by ${user.login} closed at ${closed_at}"
        comments_count:
          when: $.comments
-         text+: "<img src='https://maxcdn.icons8.com/Color/PNG/24/Business/comments-24.png'>${comments}"
+         status: comments
+         align: right
+         image: https://maxcdn.icons8.com/Color/PNG/24/Business/comments-24.png
        labels:
-         text+: {$.labels}
+         title: labels
+         itemTransform:
+            title: name
+            class: label
+            background: "#${color}"
+            replace: true
+       milestone:
+         details: milestone
+         class: label
+         background: "#0000AA"
 
 resourceTypes:
   list:
@@ -66,6 +77,7 @@ securedBy: basic
           (core.ordering):
             created: created_at
             updated: updated_at
+            comments: comments
         page: integer
       responses:
         200:

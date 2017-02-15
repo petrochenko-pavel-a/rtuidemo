@@ -241,7 +241,7 @@ var examples=[
         id:"_repos__owner___repo__issues_get",//
         context:{
             owner:"raml-org",
-            repo:"raml-spec"
+            repo:"raml-js-parser-2"
         }
     },
 ];
