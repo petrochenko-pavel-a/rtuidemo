@@ -68,12 +68,17 @@ types:
         type: Label[]
         (core.reference): true
         uniqueItems: true
+      assignees: User[]  
       milestone?:
         type: Milestone
         (core.reference): true
       state:
         type: string
         enum: [ open , closed]
+      comments:
+        type: number
+        (core.readonly): true
+        (core.visibleWhen): false
   CreateIssue:
     properties:
       title: string

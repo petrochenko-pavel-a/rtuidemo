@@ -6,13 +6,25 @@ uses:
   core: coreLib.raml
   ght: githubTypes.raml
 types:
+
    Comment:
      type: ght.Comment
      (core.label): "${user.login} ${created_at} ${body}"
      (core.icon): user.avatar_url
      (core.htmlLabel): true
+   Assignee:
+     type: ght.User
+
    Issue:
      type: ght.Issue
+     (core.actions):
+        close:
+          visibleWhen: $.state=='open'
+          parameters:
+          body: $.state='closed'
+        reopen:
+          visibleWhen: $.state=='closed'
+          body: $.state='closed'
      (core.labelDecorators):
        opened:
          when: $.state=='open'
@@ -51,6 +63,12 @@ securitySchemes:
     type: Basic Authentication
 securedBy: basic
 /repos/{owner}/{repo}:
+  /labels:
+    type:  { list: {ItemType : ght.Label} }
+  /assignees:
+    type:  { list: {ItemType : Assignee} }
+  /milestones:
+      type:  { list: {ItemType : ght.Milestone} }
   /issues:
     get:
       displayName: Issues
@@ -64,12 +82,43 @@ securedBy: basic
         listStyle:
           details: small
       queryParameters:
+        milestone:
+          (core.reference): ght.Milestone.number
+          (core.filter):
+             property: milestone.number
         state:
             enum: [open, closed, all]
             default: open
             displayName: Issue State
             (core.filter):
                noFilterValue: all
+        assignee:
+           (core.reference): Assignee.login
+           (core.filter):
+              property: assignees.login
+        creator:
+           #(core.reference): User.login
+           (core.filter):
+              property: user.login
+        mentioned:
+          #(core.reference): User.login
+          (core.filter):
+        direction:
+          (core.sortDirection): true
+          enum: [asc,desc]
+          default: desc
+        labels:
+          type: string[]
+          uniqueItems: true
+          (core.collectionFormat): csv
+          (core.reference): ght.Label.name
+          (core.filter):
+             property: labels.name
+        since:
+           type: datetime
+           (core.filter):
+             property: updated_at
+             op: ge
         sort:
           enum: [comments, created, updated]
           default: created

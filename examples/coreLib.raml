@@ -7,6 +7,8 @@ annotationTypes:
   typeahead: RAMLLocalExpression
   requiredWhenMessage: string
   enumDescriptions: string[]
+  collectionFormat:
+    enum: [ csv, multi]
   enumValues: RAMLLocalExpression
   representation: string
   htmlLabel: boolean
@@ -25,8 +27,12 @@ annotationTypes:
   computedProperties:
     properties:
        //: computePropertyType
+  actions:
+    properties:
+      //: Action
   readonly: boolean
   reference: boolean | RAMLReferenceExpression
+  sortDirection: boolean
   conversionRules:
     properties:
       //:
@@ -58,6 +64,20 @@ annotationTypes:
   propOrder:
     type: string[]
 types:
+  Conditional:
+    properties:
+      disabledWhen?: RAMLLocalExpression
+      visibleWhen?: RAMLLocalExpression
+      requiredWhen?: RAMLLocalExpression
+
+  Action:
+    type: Conditional
+    properties:
+      parameters?:
+        properties:
+          //: RAMLTypeName
+      result?: RAMLTypeName
+      body: string
   computePropertyType: any
   RAMLLocalExpression: string
   RAMLResponseExpression: string
