@@ -10,14 +10,39 @@ annotationTypes:
   collectionFormat:
     enum: [ csv, multi]
   enumValues: RAMLLocalExpression
-  representation: string
+  representation: string | any
   htmlLabel: boolean
   equalTo: string
   ordering: OrderingMappings
-  labelDecorators: any
-  uifeatures: any
+  foreignProperties:
+    properties:
+      //: string
+  NilInstance: any
+  detailsTemplate: string
+  views:
+    properties:
+      //: ViewDescription
+
+  usesApis:
+    properties:
+      //: string
+  labelDecorators:
+    properties:
+      //: DecoratorDescription
+  groupBy:
+    properties:
+        property?: string
+        allowUserConfiguration?: boolean
+        allowedGropings?: string[]
+  parametersLayout:
+    properties:
+       initiallyVisible?: string[]
+       allowConfiguration?: boolean
+       contributeToContextMenu?: boolean
+
   filter: FilterMapping |  nil
   create: RAMLTypeName| nil
+  details: RAMLTypeName| nil
   update: RAMLTypeName| nil
   list: RAMLTypeName | nil
   memberCollection: RAMLTypeName| nil
@@ -56,6 +81,7 @@ annotationTypes:
        total?: RAMLResponseExpression
        page?: RAMLRequestExpression
        results?: RAMLResponseExpression
+       offset?: RAMLLocalExpression
   preTransform: any
   errorMessageIn: RAMLResponseExpression
   icon: url
@@ -64,12 +90,26 @@ annotationTypes:
   propOrder:
     type: string[]
 types:
+
   Conditional:
     properties:
       disabledWhen?: RAMLLocalExpression
       visibleWhen?: RAMLLocalExpression
       requiredWhen?: RAMLLocalExpression
-
+  DecoratorDescription:
+    properties:
+      when?: RAMLLocalExpression
+      title?: string
+      summary?: string
+      details?: string
+      status?: string
+      itemTransform?: DecoratorDescription
+      replace?: boolean
+      align?:
+        enum: [ left, right ]
+      class?: string
+      background?: string
+      image?: string
   Action:
     type: Conditional
     properties:
@@ -84,6 +124,15 @@ types:
   RAMLRequestExpression: string
   RAMLReferenceExpression: string
   RAMLTypeName: string
+  ViewDescription:
+    properties:
+       resource: string
+       method?: string
+       displayName?: string
+       description?: string
+       fixedParameters?:
+         properties:
+           //: any
   OrderingMapping:
     properties:
       property: string
@@ -101,7 +150,25 @@ types:
       filterOp?:
             default: eq
             enum: [ eq, lt, gt, like, ge, le ]
-  url: string
+  url:
+    type: string
+    facets:
+      kind?: string
+  html: text
+  code:
+    type: text
+    facets:
+      language?: string
+  htmlUrl:
+    type: url
+    kind: html
+  link:
+    type: url
+    facets:
+      endpoint: string
+  imageUrl:
+    type: url
+    kind: image
   multiline:
     type: string
   text: multiline

@@ -6,7 +6,6 @@ uses:
   core: coreLib.raml
   ght: githubTypes.raml
 types:
-
    Comment:
      type: ght.Comment
      (core.label): "${user.login} ${created_at} ${body}"
@@ -14,7 +13,6 @@ types:
      (core.htmlLabel): true
    Assignee:
      type: ght.User
-
    Issue:
      type: ght.Issue
      (core.actions):
@@ -75,12 +73,13 @@ securedBy: basic
       (core.errorMessageIn): message
       (core.basicPaging): { page: page}
       (core.representation): list
-      (core.uifeatures):
-        search: true
-        grouping: true
-        initialOrdering: updated_at
-        listStyle:
-          details: small
+      (core.parametersLayout):
+        initiallyVisible: [state, labels, milestone , sort]
+        allowConfiguration: true
+        contributeToContextMenu: true
+      (core.groupBy):
+        property: milestone
+        allowUserConfiguration: true
       queryParameters:
         milestone:
           (core.reference): ght.Milestone.number

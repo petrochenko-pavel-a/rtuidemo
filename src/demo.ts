@@ -244,6 +244,46 @@ var examples=[
             repo:"raml-js-parser-2"
         }
     },
+    {
+        name: "Stack Exchange",
+        file: "/examples/stackExchange.raml",
+        id:"_questions_get",//
+        context:{
+            filter:"withbody", //
+            site:"stackoverflow", //repo:"stackoverflow"
+        }
+    },
+    {
+        name: "Stack Exchange 2",
+        file: "/examples/stackExchange0.raml",
+        id:"_questions_get",//
+        context:{
+            filter:"withbody", //
+            site:"stackoverflow", //repo:"stackoverflow"
+        }
+    },
+    {
+        name: "Space launches",
+        file: "/examples/launchLibrary.raml",
+        id:"_launch_get",//
+        context:{
+            mode:"verbose", //repo:"stackoverflow"
+        }
+    },
+    {
+        name: "Space launches 2",
+        file: "/examples/launchLibrary0.raml",
+        id:"_launch_get",//
+        context:{
+            mode:"verbose", //repo:"stackoverflow"
+        }
+    },
+    {
+        name: "Glot Snippets",
+        file: "/examples/snippetsApi.raml",
+        id:"_snippets_get",////
+
+    },
 ];
 dv.setInput(examples)
 dv.setLabelProvider({

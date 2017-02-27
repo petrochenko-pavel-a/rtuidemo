@@ -27,12 +27,29 @@ types:
     type: HasId
     properties:
       name: string
+    (core.NilInstance):
+        name: None
+    (core.labelDecorators):
+      primary:
+          title: ${name} label
+          background: "#${color}"
+          replace: true
+          class: label
   link: core.relation
   Milestone:
     type: HasId
     properties:
       number: integer
       title: string
+    (core.NilInstance):
+      title: None
+      number: -1
+    (core.labelDecorators):
+      milestone:
+        title: title
+        class: label
+        background: "#0000AA"
+        replace: true
   Comment:
     type: Base
   Organization:
@@ -55,11 +72,12 @@ types:
     properties:
       login: string
 
+
   Issue:
     type: Base
     (core.icon): "https://maxcdn.icons8.com/office/PNG/16/Animals/bug-16.png"
     properties:
-      number:
+      number?:
         type: string
         (core.readonly): true
         (core.visibleWhen): false
@@ -68,7 +86,13 @@ types:
         type: Label[]
         (core.reference): true
         uniqueItems: true
-      assignees: User[]  
+      assignees:
+        type: User[]
+        uniqueItems: true;
+        (core.reference): true
+      user:
+        type: User
+        (core.reference): true
       milestone?:
         type: Milestone
         (core.reference): true
