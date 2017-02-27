@@ -263,6 +263,15 @@ var examples=[
         }
     },
     {
+        name: "Stack Exchange 3",
+        file: "/examples/stackExchange1.raml",
+        id:"_questions_get",//
+        context:{
+            filter:"withbody", //
+            site:"stackoverflow", //repo:"stackoverflow"
+        }
+    },
+    {
         name: "Space launches",
         file: "/examples/launchLibrary.raml",
         id:"_launch_get",//
