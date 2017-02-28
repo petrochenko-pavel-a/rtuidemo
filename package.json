@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "rm -rf dist/ && ./node_modules/typescript/bin/tsc",
     "build": "npm run compile",
-    "start": "budo ./dist/demo.js  --serve bundle.js --live"
+    "start": "budo ./dist/demo.js  --serve bundle.js --live",
+    "package":"browserify ./dist/demo.js -o bundle.js"
   },
   "dependencies": {
     "@types/jquery": "^2.0.39",
