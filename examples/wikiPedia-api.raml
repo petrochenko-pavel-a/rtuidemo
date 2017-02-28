@@ -1,0 +1,49 @@
+#%RAML 1.0
+title:
+baseUri: https://en.wikipedia.org
+mediaType: application/json
+uses:
+  core: coreLib.raml
+types:
+  Article:
+    properties:
+      title: string
+  ArticleLink:
+    type: core.url
+/wiki/{title}:
+  uriParameters:
+    title:
+      type: string
+      (core.reference): Article.title
+  (core.id): pageByTitle
+  get:
+    responses:
+      200:
+        body:
+          text/html: Article
+/w/api.php/:
+  get:
+    queryParameters:
+      titles:
+        type: string
+        (core.reference): Article.title
+      format:
+        enum: [json, xml]
+      action: string
+      prop: string
+      exinfo: nil
+      explaintext: nil
+(core.views):
+  abstract:
+    resource: /w/api.php
+    method: get
+    fixedParameters:
+       format: json
+       action: query
+       prop: extracts
+       exinfro: ""
+       eplaintext: ""
+    resultTransform: query.pages[0].exract
+    protocol: JSONP
+    type: string
+#?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=Stack%20Overflow

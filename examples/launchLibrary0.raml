@@ -1,0 +1,88 @@
+#%RAML 1.0
+baseUri: https://launchlibrary.net/1.2/
+title: Launch Library
+uses:
+  core: coreLib.raml
+(core.usesApis):
+  wiki: wikiPedia-api.raml
+types:
+  Base:
+    properties:
+      name: string
+      wikiURL?:
+        type: core.link
+        endpoint: wiki.pageByTitle
+        (core.visibleWhen): false
+      mapURL?: core.htmlUrl
+    (core.foreignProperties):
+      abstract: wiki.abstract
+  Pad: Base
+  Agency: Base
+  Location:
+    (core.icon): https://32kda.github.io/com.onpositive.images/assets/images/org.eclipse.jdt.doc.user/relaunch.png
+    properties:
+      pads:
+        (core.representation): elements
+        type: Pad[]
+  Mission:
+    type: Base
+    properties:
+      description?: string
+  Rocket:
+    (core.representation): inline
+    type: Base
+    properties:
+      imageURL?: core.imageUrl
+  Launch:
+    (core.representation): inline
+    properties:
+      net: datetime
+      name: string
+      location?: Location
+      rocket?: Rocket
+      status: number
+      vidURLs:
+        type: core.url[]
+        displayName: Videos
+        (core.representation): elements
+      missions?:
+        (core.representation): elements
+        type: Mission[]
+    (core.icon): "https://maxcdn.icons8.com/Color/PNG/24/Transport/rocket-24.png"
+mediaType: application/json
+/launch:
+  (core.columns): [name, net]
+  (core.parametersLayout):
+        allowConfiguration: true
+        contributeToContextMenu: true
+  (core.basicPaging):
+    total: total
+    results: launches
+    offset: offset
+  get:
+    displayName: Launches
+    queryParameters:
+      offset: number
+      name: string
+      startdate:
+        (core.filter):
+          property: net
+          op: gt
+          noFilterValue: 1960-01-01
+        type: date-only
+        default: 2015-01-01
+      enddate:
+        type: date-only
+        (core.filter):
+          property: net
+          op: lt
+          noFilterValue: 3020-01-01
+      mode: string
+    responses:
+      200:
+        body:
+          properties:
+            launches: Launch[]
+            offset: number
+            count: number
+            total: number

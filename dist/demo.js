@@ -13,7 +13,7 @@ var controls_1 = require("types-ui/dist/controls");
 var DemoView = (function (_super) {
     __extends(DemoView, _super);
     function DemoView() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return DemoView;
 }(wb.TreeView));
@@ -22,7 +22,7 @@ var renderingOptions = {};
 var Details = (function (_super) {
     __extends(Details, _super);
     function Details(t, i) {
-        _super.call(this, t, i);
+        return _super.call(this, t, i) || this;
     }
     Details.prototype.innerRender = function (c) {
         var _this = this;
@@ -90,7 +90,7 @@ function beatify(id) {
 var SourceType = (function (_super) {
     __extends(SourceType, _super);
     function SourceType() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     SourceType.prototype.innerRender = function (c) {
         c.innerHTML = "";
@@ -236,8 +236,56 @@ var examples = [
         id: "_repos__owner___repo__issues_get",
         context: {
             owner: "raml-org",
-            repo: "raml-spec"
+            repo: "raml-js-parser-2"
         }
+    },
+    {
+        name: "Stack Exchange",
+        file: "/examples/stackExchange.raml",
+        id: "_questions_get",
+        context: {
+            filter: "withbody",
+            site: "stackoverflow",
+        }
+    },
+    {
+        name: "Stack Exchange 2",
+        file: "/examples/stackExchange0.raml",
+        id: "_questions_get",
+        context: {
+            filter: "withbody",
+            site: "stackoverflow",
+        }
+    },
+    {
+        name: "Stack Exchange 3",
+        file: "/examples/stackExchange1.raml",
+        id: "_questions_get",
+        context: {
+            filter: "withbody",
+            site: "stackoverflow",
+        }
+    },
+    {
+        name: "Space launches",
+        file: "/examples/launchLibrary.raml",
+        id: "_launch_get",
+        context: {
+            mode: "verbose",
+        }
+    },
+    {
+        name: "Space launches 2",
+        file: "/examples/launchLibrary0.raml",
+        id: "_launch_get",
+        context: {
+            mode: "verbose",
+        }
+    },
+    {
+        name: "Glot Snippets",
+        file: "/examples/snippetsApi.raml",
+        id: "_snippets_get",
     },
 ];
 dv.setInput(examples);

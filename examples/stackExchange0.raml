@@ -1,0 +1,76 @@
+#%RAML 1.0
+baseUri: http://api.stackexchange.com/2.2/
+title: Stack Exchange
+mediaType: application/json
+uses:
+  core: coreLib.raml
+resourceTypes:
+  collection:
+    get:
+      queryParameters:
+        site:
+          type: string
+          required: true
+        filter: string
+      (core.basicPaging):
+        page: page
+        results: items
+      responses:
+        200:
+          body:
+            properties:
+              items:
+                type: <<items>>[]
+                (core.representation): <<representation>>
+types:
+  Base:
+    properties:
+      body?: core.html
+      owner: Owner
+    (core.icon): owner.profile_image
+    (core.label): body
+    (core.htmlLabel): true
+  Owner:
+    properties:
+      reputation: number
+      profile_image: core.imageUrl
+      display_name: string
+    (core.label): display_name
+    (core.icon): profile_image
+  Question:
+    type: Base
+    (core.label): title
+    properties:
+      question_id: integer
+      tags: string[]
+      title: string
+    (core.representation): inline
+  Answer:
+    type: Base
+    properties:
+      answer_id: integer
+  Comment: Base
+/questions:
+  type:  { collection: {items: Question , representation : list} }
+  get:
+    queryParameters:
+      tagged:
+        type: string
+        default: raml
+  /{id}:
+    uriParameters:
+      id:
+        (core.reference): Question.question_id
+    /answers:
+      type:   { collection: {items : Answer, representation : list} }
+      (core.memberCollection): Question
+    /comments:
+      type:   { collection: {items : Comment, representation : list-only} }
+      (core.memberCollection): Question
+/answers/{id}/comments:
+   displayName: Comments
+   uriParameters:
+     id:
+       (core.reference): Answer.answer_id
+   type:   { collection: {items : Comment, representation : list-only} }
+   (core.memberCollection): Answer

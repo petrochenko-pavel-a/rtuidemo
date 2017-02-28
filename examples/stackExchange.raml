@@ -1,0 +1,72 @@
+#%RAML 1.0
+baseUri: http://api.stackexchange.com/2.2/
+title: Stack Exchange
+uses:
+  core: coreLib.raml
+mediaType: application/json
+types:
+  Base:
+    properties:
+      body?: core.html
+      owner: Owner
+    (core.icon): owner.profile_image
+    (core.label): body
+    (core.htmlLabel): true
+  Owner:
+    properties:
+      reputation: number
+      profile_image: core.imageUrl
+      display_name: string
+    (core.label): display_name
+    (core.icon): profile_image
+  Question:
+    type: Base
+    (core.label): title
+    properties:
+      question_id: integer
+      tags: string[]
+      title: string
+  Answer: Base
+/questions:
+  get:
+    (core.basicPaging):
+      page: page
+      results: items
+    queryParameters:
+      tagged:
+        type: string
+        required: true
+        default: raml
+      filter: string
+      site:
+        type: string
+        required: true
+    responses:
+      200:
+        body:
+          properties:
+            items:
+              type: Question[]
+              (core.representation): list
+  /{id}:
+    uriParameters:
+      id:
+        (core.reference): Question.question_id
+    /answers:
+      get:
+        queryParameters:
+          site:
+            type: string
+            required: true
+          filter: string
+        (core.basicPaging):
+          page: page
+          results: items
+        (core.memberCollection): Question
+        responses:
+          200:
+            body:
+              properties:
+                items:
+                  type: Answer[]
+                  (core.representation): list-only

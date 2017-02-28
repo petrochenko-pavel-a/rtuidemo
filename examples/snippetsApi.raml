@@ -1,0 +1,58 @@
+#%RAML 1.0
+title: Glo Snippets
+baseUri: https://snippets.glot.io/
+mediaType: application/json
+uses:
+  core: coreLib.raml
+types:
+  Snippet:
+    properties:
+      created: datetime
+      updated: datetime
+      language: string
+      title: string
+      owner: string
+      url: string
+      id: string
+      files_hash: string
+    (core.icon): https://maxcdn.icons8.com/Color/PNG/24/Logos/jsfiddle-24.png
+  SnippetWithFiles:
+    type: Snippet
+    properties:
+      files:
+        type: File[]
+        (core.representation): list
+  File:
+    (core.icon): https://maxcdn.icons8.com/Color/PNG/24/Files/code_file-24.png
+    properties:
+      name: string
+      content:
+        type: core.code
+        language: language
+traits:
+  paging:
+    queryParameters:
+      page: number
+    (core.basicPaging):
+      page: page
+/snippets:
+  get:
+    is:  [paging]
+    queryParameters:
+      language: string
+      owner: string
+    responses:
+      200:
+        body:
+          type: Snippet[]
+          (core.columns): [title, owner, updated]
+  /{id}:
+    uriParameters:
+      id:
+        type: string
+        (core.reference): Snippet.id
+    get:
+      (core.details): Snippet
+      responses:
+        200:
+          body: SnippetWithFiles
