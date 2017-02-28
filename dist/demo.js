@@ -140,7 +140,7 @@ var SourceType = (function (_super) {
     SourceType.prototype.setInput = function (i) {
         var _this = this;
         if (i) {
-            ramlLoader.parseToJSON(window.location.protocol + "//" + window.location.host + i.file, function (f) {
+            ramlLoader.parseToJSON(window.location.protocol + "//" + window.location.host + window.location.pathname + i.file, function (f) {
                 var rr = f.types;
                 _this.input = {
                     editType: f.ramlSource,

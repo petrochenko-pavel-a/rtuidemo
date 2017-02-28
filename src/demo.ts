@@ -143,7 +143,7 @@ class SourceType extends wb.ViewPart {
     }
     setInput(i: any) {
         if (i) {
-            ramlLoader.parseToJSON(window.location.protocol+"//"+window.location.host + i.file, (f) => {
+            ramlLoader.parseToJSON(window.location.protocol+"//"+window.location.host+window.location.pathname + i.file, (f) => {
                 var rr=f.types;
 
                 this.input ={
