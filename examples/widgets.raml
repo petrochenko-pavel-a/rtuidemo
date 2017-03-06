@@ -1,0 +1,12 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  widget: object
+  table:
+    type: widget
+    properties:
+      columns:
+        (core.primary): true
+        type: string[]
+  list: widget

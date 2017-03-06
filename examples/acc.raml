@@ -1,0 +1,15 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+
+types:
+  Items:
+    properties:
+      name: string
+      lastName: string
+      skills: string[]
+      education: string[]
+    (core.representation):
+      hc(grab,eq):
+        - vc: [name, lastName]
+        - accordition: [ skills, education ]

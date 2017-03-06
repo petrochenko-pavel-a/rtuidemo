@@ -1,0 +1,44 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+annotationTypes:
+  layout:
+types:
+  Person:
+    properties:
+      name: string
+      role: string
+  PersonArray:
+    type: Person[]
+    (core.representation):
+      table: name, role
+  Team:
+    properties:
+      title: string
+      members: Person[]
+    default:
+      title: "Some team"
+      members: []
+  Match:
+    properties:
+      title:
+        type: string
+        default: Match
+      firstTeam: Team
+      secondTeam: Team
+      firstTeamStrikes:
+        type: integer
+        default: 1
+      secondTeamStrikes:
+        type: integer
+        default: 1
+    (core.representation):
+      - title
+      - hc(grabVertical,eq):
+         - vc:
+            - firstTeam
+         - vc:
+            - secondTeam
+      - hc(eq):
+         - firstTeamStrikes
+         - secondTeamStrikes

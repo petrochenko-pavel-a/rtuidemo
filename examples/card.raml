@@ -1,0 +1,25 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Card:
+    (core.immutable): true
+    properties:
+      image: core.imageUrl
+      title: string
+      tags: string[]
+      author: string
+
+    default: 
+      image: https://i.stack.imgur.com/bJ120.png?s=128&g=1
+      title: A usable dev RAML mocker
+      tags: [javascript, raml]
+      author: Mike
+    (core.representation):
+       - hc:
+          - thumbnail: image
+          - vc:
+            - h3(no-margin): title
+            - hc:
+               - tag-list: tags
+               - label(padTop): asked by ${author}

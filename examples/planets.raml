@@ -1,0 +1,54 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+    Feature:
+      enum:
+        - artifacts
+        - antaran-background
+        - seafood
+        - gold
+        - diamonds
+        - uranium
+    Planet:
+      properties:
+        name: string
+        size:
+          (core.representation): select
+          enum: [ tiny, small, average, large, huge]
+        climate:
+          enum: [arid, desert, tundra, ocean, terrain, vulcanic, toxic, radiactive]
+        minirals:
+          (core.representation): select
+          enum: [ultra-poor, poor, average, rich, ultra-rich]
+        features:
+          type: Feature[]
+          uniqueItems: true
+      (core.labelDecorators):
+        open:
+          status: Open
+          class: btn btn-xs btn-success
+          action: open("Open",$value)
+    StarSystem:
+     (core.actions):
+       clear:
+         disabledWhen: |
+           !($.planets&&$.planets.length>0)
+         body: |
+           $.planets=[];
+       prepopulate:
+           disabledWhen: |
+            ($.planets&&$.planets.length>0)
+           body: |
+             $.name="Solar System"
+             var v={"name":"Terra","climate":"terrain","size":"tiny","minirals":"rich","features":[]};
+             var v1={"name":"Mercury","climate":"vulcanic","size":"tiny","minirals":"rich","features":[]};
+             var v2={"name":"Venus","climate":"toxic","size":"average","minirals":"rich","features":[]};
+             $.planets=[v,v1,v2];
+     (core.representation):
+        - name
+        - list: planets
+        - rc: [ prepopulate, clear ]
+     properties:
+       name: string
+       planets: Planet[]

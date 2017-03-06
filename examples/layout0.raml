@@ -1,0 +1,26 @@
+#%RAML 1.0 Library
+uses:
+  core: coreLib.raml
+types:
+  Character:
+    properties:
+      name: string
+
+      strength?: integer
+      dexterity?: integer
+      constitution?: integer
+
+      charisma?: integer
+      appearence?: integer
+      manipulation?: integer
+
+
+      intelligence?: integer
+      wisdom?: integer
+      intuition?: integer
+    (core.representation):
+      - name
+      - hc:
+           - vc(grab): [ "Phycical:", strength , dexterity, constitution]
+           - vc(grab): [ "Social:", charisma , appearence, manipulation]
+           - vc(grab): [ "Mental", intelligence, wisdom, intuition]
