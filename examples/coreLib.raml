@@ -11,7 +11,9 @@ annotationTypes:
     enum: [ csv, multi]
   enumValues: RAMLLocalExpression
   representation: string | any
+  primary: nil| boolean
   htmlLabel: boolean
+  immutable: nil | boolean
   equalTo: string
   ordering: OrderingMappings
   foreignProperties:
@@ -22,7 +24,6 @@ annotationTypes:
   views:
     properties:
       //: ViewDescription
-
   usesApis:
     properties:
       //: string
@@ -103,6 +104,8 @@ types:
       summary?: string
       details?: string
       status?: string
+      action? : string
+
       itemTransform?: DecoratorDescription
       replace?: boolean
       align?:

@@ -169,6 +169,26 @@ var examples = [
         file: "examples/example1.raml"
     },
     {
+        name: "Layout 0 ",
+        file: "examples/layout0.raml"
+    },
+    {
+        name: "Layout ",
+        file: "examples/actions.raml"
+    },
+    {
+        name: "Another Layout ",
+        file: "examples/card.raml"
+    },
+    {
+        name: "Accordition ",
+        file: "examples/acc.raml"
+    },
+    {
+        name: "Star System Editor",
+        file: "examples/planets.raml"
+    },
+    {
         name: "Enum descriptions",
         file: "examples/example2.raml"
     },

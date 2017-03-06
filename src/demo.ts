@@ -6,7 +6,6 @@ import wb=require("types-ui/dist/workbench");
 import {SourceCode, VerticalFlex} from "types-ui/dist/controls";
 class DemoView extends wb.TreeView {}
 var dv = new DemoView("List of Demos", "Demo")
-
 const renderingOptions={};
 class Details extends wb.ViewPart {
 
@@ -36,7 +35,6 @@ class Details extends wb.ViewPart {
                 tp=this.input.types;
 
             }
-
 
                 var bnd = tui.tps.binding(tui.tps.service.newInstance(toRender), toRender);
                 if (this.context){
@@ -169,9 +167,30 @@ var examples=[
         name: "Simplest Possible Case",
         file: "examples/example0.raml"
     },
+
     {
         name: "Form with dependent fields",
         file: "examples/example1.raml"
+    },
+    {
+        name: "Layout 0 ",
+        file: "examples/layout0.raml"
+    },
+    {
+        name: "Layout ",
+        file: "examples/actions.raml"
+    },
+    {
+        name: "Another Layout ",
+        file: "examples/card.raml"
+    },
+    {
+        name: "Accordition ",
+        file: "examples/acc.raml"
+    },
+    {
+        name: "Star System Editor",
+        file: "examples/planets.raml"
     },
     {
         name: "Enum descriptions",

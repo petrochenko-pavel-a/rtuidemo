@@ -45,11 +45,27 @@ types:
       question_id: integer
       tags: string[]
       title: string
-    (core.representation): inline
+    (core.representation):
+      - hc(pad):
+         - thumbnail: owner.profile_image
+         - vc:
+           - h3(no-margin): title
+           - hc:
+             - tag-list: tags
+             - label(padTop): Asked by ${owner.display_name}
+      - accordition(grab,no-min-size):
+        - body
+        - list-only(open, no-selection): answers
+        - list-only: comments
   Answer:
     type: Base
     properties:
       answer_id: integer
+    (core.labelDecorators):
+        open:
+          status: Comments
+          class: btn btn-xs btn-info
+          action: open("Comments",$value.binding("comments"))
   Comment: Base
 /questions:
   type:  { collection: {items: Question , representation : list} }
