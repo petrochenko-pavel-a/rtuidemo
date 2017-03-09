@@ -40,13 +40,7 @@ annotationTypes:
        initiallyVisible?: string[]
        allowConfiguration?: boolean
        contributeToContextMenu?: boolean
-
   filter: FilterMapping |  nil
-  create: RAMLTypeName| nil
-  details: RAMLTypeName| nil
-  update: RAMLTypeName| nil
-  list: RAMLTypeName | nil
-  memberCollection: RAMLTypeName| nil
   label: RAMLLocalExpression
   key: boolean
   computeFunction: RAMLLocalExpression
@@ -59,12 +53,14 @@ annotationTypes:
   readonly: boolean
   reference: boolean | RAMLReferenceExpression
   sortDirection: boolean
+
+
   conversionRules:
     properties:
       //:
         properties:
-          from: string
-          to: string
+          from: RAMLTypeName
+          to: RAMLTypeName
           selfRule?: string
           autoConvertKnownProperties?:
             type: boolean
@@ -77,14 +73,57 @@ annotationTypes:
     items: string
   errorMessage: string
   instanceValidator: string
+
+  create:
+    description: marks that this endpoint allows to create new instances of specified type. If type name is ommitted it assumes that type is defined by the body type
+    type: RAMLTypeName| nil
+  details:
+    description: marks that this endpoint allows to get an additional details for specified type.
+    type: RAMLTypeName
+  update:
+    description: marks that this endpoint allows to update instances of specified type. If type name is ommitted it assumes that type is defined by the body type
+    type: RAMLTypeName| nil
+  list:
+    description: marks that this endpoint allows to list instances of specified type.
+    type: RAMLTypeName | nil
+  action:
+      description: marks that this endpoint contains an action related to specifed type.
+      type: RAMLTypeName | nil
+  memberProperty:
+    description: marks that this endpoint returns an object which is related to parent type
+    type: RAMLTypeName| nil
+  memberCollection:
+    description: marks that this endpoint returns a collection of instances which is related to parent type
+    type: RAMLTypeName| nil
   basicPaging:
+    description: |
+       This annotation allows to specify how framework may use parameters of the method to page collection.
     properties:
-       total?: RAMLResponseExpression
-       page?: RAMLRequestExpression
-       results?: RAMLResponseExpression
-       offset?: RAMLLocalExpression
+       total?:
+         description: specifies where total length of collection is located in response
+         type: RAMLResponseExpression
+       page?:
+         description: Specifies where framework should pass number of the page to get.
+         type: RAMLRequestExpression
+       moreResults:
+         type: RAMLResponseExpression
+         description: specifies where framework should look in response to test if collection contains more results.
+       results?:
+         description: Specifies where content of collection is located in response
+         type: RAMLResponseExpression
+       offset?:
+         description: Specifies where framework should pass offset from the start of collection
+         type: RAMLRequestExpression
   preTransform: any
-  errorMessageIn: RAMLResponseExpression
+
+  errorMessageIn:
+    description: |
+      This annotation allows to specify location of human readable error messages
+      in responses. It uses RAML Response Expression notation.
+      it can be applied on API, Resource and Method level.
+    type: RAMLResponseExpression
+
+
   icon: url
   id: string
   unique: boolean
