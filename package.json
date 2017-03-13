@@ -7,12 +7,13 @@
     "compile": "rm -rf dist/ && ./node_modules/typescript/bin/tsc",
     "build": "npm run compile",
     "start": "budo ./dist/demo.js  --serve bundle.js --live",
-    "package":"browserify ./dist/demo.js -o bundle.js"
+    "package": "browserify ./dist/demo.js -o bundle.js"
   },
   "dependencies": {
     "@types/jquery": "^2.0.39",
-    "types-ui": "0.0.6",
-    "raml2type-bindings":"0.0.7"
+    "headjs": "^1.0.3",
+    "raml2type-bindings": "0.0.7",
+    "types-ui": "0.0.6"
   },
   "directories": [
     "dist"
