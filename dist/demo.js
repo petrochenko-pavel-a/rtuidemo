@@ -21,7 +21,7 @@ var details = RC.view("Example", function (e) {
     if (example) {
         var bnd = example.createBinding();
         bnd.addListener(function (e) { return content.setContent(JSON.stringify(bnd.get(), null, 2)); });
-        RC.render(e, bnd, example.renderingOptions);
+        RC.render(e, bnd, {}, example.renderingOptions);
     }
 });
 var list = RC.simpleListView("List of Demos", core.examples, "https://maxcdn.icons8.com/Color/PNG/24/Travel/mess_tin-24.png", "name");

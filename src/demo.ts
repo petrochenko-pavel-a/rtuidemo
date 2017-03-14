@@ -22,7 +22,7 @@ var details = RC.view("Example", e=>{
     if (example) {
         var bnd = example.createBinding();
         bnd.addListener(e=>content.setContent(JSON.stringify(bnd.get(), null, 2)));
-        RC.render(e,bnd,example.renderingOptions);
+        RC.render(e,bnd,{},example.renderingOptions);
     }
 })
 
