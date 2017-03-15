@@ -12,7 +12,7 @@
   "dependencies": {
     "@types/jquery": "^2.0.39",
     "headjs": "^1.0.3",
-    "raml2type-bindings": "0.0.7",
+    "raml2ts": "0.0.8",
     "types-ui": "0.0.6"
   },
   "directories": [
