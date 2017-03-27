@@ -13,7 +13,7 @@ var controls_1 = require("types-ui/dist/controls");
 var DemoView = (function (_super) {
     __extends(DemoView, _super);
     function DemoView() {
-        return _super.apply(this, arguments) || this;
+        _super.apply(this, arguments);
     }
     return DemoView;
 }(wb.TreeView));
@@ -22,7 +22,7 @@ var renderingOptions = {};
 var Details = (function (_super) {
     __extends(Details, _super);
     function Details(t, i) {
-        return _super.call(this, t, i) || this;
+        _super.call(this, t, i);
     }
     Details.prototype.innerRender = function (c) {
         var _this = this;
@@ -90,7 +90,7 @@ function beatify(id) {
 var SourceType = (function (_super) {
     __extends(SourceType, _super);
     function SourceType() {
-        return _super.apply(this, arguments) || this;
+        _super.apply(this, arguments);
     }
     SourceType.prototype.innerRender = function (c) {
         c.innerHTML = "";
