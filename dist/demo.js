@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var core = require("./core");
 var RC = require("types-ui");
 var SourceCode = RC.controls.SourceCode;

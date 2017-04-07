@@ -149,5 +149,11 @@ var examples:core.IExample[]=[
         id:"_snippets_get",////
 
     },
+    {
+        name: "Localhost",
+        file: "examples/api.raml",
+        id:"_projects_get",////
+
+    },
 ];
 export = examples

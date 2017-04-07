@@ -1,0 +1,34 @@
+#%RAML 1.0
+title: Test
+mediaType: application/json
+uses:
+  core: coreLib.raml
+(core.usesApis):
+   service1: service1.raml
+   service2: service2.raml
+annotationTypes:
+  directory:
+    (core.relationKind):
+    type: nil
+types:
+  Directory: object
+  Team:
+    properties:
+      id: integer
+      name: string
+    (core.representation):
+        target: react
+        value: <div>${name}</div>
+/directory:
+  (directory):
+  (core.includeIn): Team
+  get:
+    responses:
+      200:
+        body: Directory
+/teams:
+  (core.list):
+  get:
+    responses:
+      200:
+        body: Team[]

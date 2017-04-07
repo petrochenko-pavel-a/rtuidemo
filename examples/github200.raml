@@ -70,6 +70,7 @@ securedBy: basic
   /issues:
     get:
       displayName: Issues
+      (core.list):
       (core.errorMessageIn): message
       (core.basicPaging): { page: page}
       (core.representation): list
@@ -96,11 +97,11 @@ securedBy: basic
            (core.filter):
               property: assignees.login
         creator:
-           #(core.reference): User.login
+           (core.reference): User.login
            (core.filter):
               property: user.login
         mentioned:
-          #(core.reference): User.login
+          (core.reference): User.login
           (core.filter):
         direction:
           (core.sortDirection): true

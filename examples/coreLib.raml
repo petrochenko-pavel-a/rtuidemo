@@ -1,8 +1,8 @@
 #%RAML 1.0 Library
 (id): http://raml.org/core.extensions
 annotationTypes:
-  disabledWhen: RAMLLocalExpression
-  visibleWhen: RAMLLocalExpression
+  disabledWhen: RAMLLocalExpression #
+  visibleWhen: RAMLLocalExpression  #
   requiredWhen: RAMLLocalExpression
   typeahead: RAMLLocalExpression
   requiredWhenMessage: string
@@ -11,10 +11,13 @@ annotationTypes:
     enum: [ csv, multi]
   enumValues: RAMLLocalExpression
   representation: string | any
-  primary: nil| boolean
+  primary: nil| boolean #
   htmlLabel: boolean
   immutable: nil | boolean
-  equalTo: string
+  parent: nil | boolean #
+  child: nil | boolean  #
+
+  equalTo: string #!
   ordering: OrderingMappings
   foreignProperties:
     properties:
@@ -42,7 +45,7 @@ annotationTypes:
        contributeToContextMenu?: boolean
   filter: FilterMapping |  nil
   label: RAMLLocalExpression
-  key: boolean
+  key: boolean #
   computeFunction: RAMLLocalExpression
   computedProperties:
     properties:
@@ -50,8 +53,8 @@ annotationTypes:
   actions:
     properties:
       //: Action
-  readonly: boolean
-  reference: boolean | RAMLReferenceExpression
+  readonly: boolean #
+  reference: boolean | RAMLReferenceExpression #
   sortDirection: boolean
 
 
@@ -74,25 +77,28 @@ annotationTypes:
   errorMessage: string
   instanceValidator: string
 
-  create:
+  create: #
     description: marks that this endpoint allows to create new instances of specified type. If type name is ommitted it assumes that type is defined by the body type
     type: RAMLTypeName| nil
-  details:
+  delete:   RAMLTypeName| nil #
+  relationKind: string | nil #
+  includeIn: string | string[] #
+  details: #
     description: marks that this endpoint allows to get an additional details for specified type.
     type: RAMLTypeName
-  update:
+  update: #
     description: marks that this endpoint allows to update instances of specified type. If type name is ommitted it assumes that type is defined by the body type
     type: RAMLTypeName| nil
-  list:
+  list: #
     description: marks that this endpoint allows to list instances of specified type.
     type: RAMLTypeName | nil
-  action:
+  action: #
       description: marks that this endpoint contains an action related to specifed type.
       type: RAMLTypeName | nil
   memberProperty:
     description: marks that this endpoint returns an object which is related to parent type
     type: RAMLTypeName| nil
-  memberCollection:
+  memberCollection: #
     description: marks that this endpoint returns a collection of instances which is related to parent type
     type: RAMLTypeName| nil
   basicPaging:
@@ -125,7 +131,7 @@ annotationTypes:
 
 
   icon: url
-  id: string
+  id: string #
   unique: boolean
   propOrder:
     type: string[]
