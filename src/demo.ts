@@ -20,7 +20,6 @@ class Details extends wb.ViewPart {
         c.innerHTML = "";
         if (this.input) {
             var edit=null;
-
             var toRender=null;
             var tp=this.input;
             var op={};
